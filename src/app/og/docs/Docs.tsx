@@ -1,11 +1,11 @@
-import { TDocsTemplate } from "./page"
+import { TDocsTemplate } from "./oldpage"
 import { fontSizeCalculator } from "@/components/utils"
 import Image from "next/image"
 
 const themeConfigs = {
   light: {
-    grad: ['#f5f5f4', '#dbeafe'],
-    color: '#0a0a0a'
+    grad: ['#ff00d3', '#a3e635'],
+    color: '#082f49'
 
   },
   dark: {
@@ -102,7 +102,7 @@ export function DocsTemplateUI({ t }: { t: TDocsTemplate }) {
   return (
     <div className="w-full relative min-h-72 rounded-xl px-2" style={{
       backgroundImage: `linear-gradient(110deg, ${theme.grad[0]}, ${theme.grad[1]})`,
-      fontWeight: 700, fontFamily: 'Poppins'
+      fontWeight: 700, fontFamily: 'Figtree'
     }}>
 
       <div

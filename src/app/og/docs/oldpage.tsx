@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DocsTemplateUI } from "./Docs";
 import { useForm } from "react-hook-form";
 import { Input, Label } from "@/components/ui/Inputs";
 import { Button } from "@/components/Button";
@@ -9,40 +10,37 @@ import { useState } from "react";
 import { Copy, CornerDownLeft, ExternalLink } from 'lucide-react';
 import { getTemplate, routes, serialize } from "@/utils/commonUtils";
 import Alert from "@/components/ui/Alert";
-import { TemplateUI } from "./SplitImage";
 const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN
 
-const Schema = z.object({
+const DocsTemplateSchema = z.object({
   title: z.string(),
+  logo: z.string().url(),
+  name: z.string(),
   sub: z.string(),
   website: z.string(),
-  dark: z.boolean(),
-  image : z.string(),
-  logo : z.string()
-
+  dark: z.boolean()
 })
 
-export type Template = z.infer<typeof Schema>
+export type TDocsTemplate = z.infer<typeof DocsTemplateSchema>
 
-const defaultValue: Template = {
-  title: "Every moment ",
-  sub: "is a fresh beginning. So enjoy your freshly cooked italian food!",
-  website: "Food Blogs",
-  dark: false,
-  logo: "https://dynamicog.com/fillers/cal-logo.png",
-  image: "https://dynamicog.com/fillers/stock-kitchen.jpeg"
+const defaultValue: TDocsTemplate = {
+  logo: process.env.NEXT_PUBLIC_DOMAIN as string + "/fillers/Icon.png",
+  title: "Be part of a growing community of creative minds. Share ideas, collaborate, and shape the future with IdeaHatch!",
+  sub: "",
+  name: "IdeaHatch - Where Ideas Take Flight",
+  website: "ideahatch.in",
+  dark: false
 }
 
-const templateLiteral = `${DOMAIN}/${routes["split-image"]}?${getTemplate(defaultValue)}`
+const templateLiteral = `${DOMAIN}/${routes.docs}?${getTemplate(defaultValue)}`
 
 
-export default function Simple() {
+export default function Docs() {
 
-  const [t, setT] = useState<Template>(defaultValue)
-
+  const [t, setT] = useState<TDocsTemplate>(defaultValue)
   const { handleSubmit, formState: { errors }, getValues, reset, register } =
-    useForm<z.input<typeof Schema>>({
-      resolver: zodResolver(Schema),
+    useForm<z.input<typeof DocsTemplateSchema>>({
+      resolver: zodResolver(DocsTemplateSchema),
       defaultValues: t
     });
 
@@ -54,7 +52,7 @@ export default function Simple() {
   const getLink = (dark: boolean) => {
     let tem = t;
     if (dark) tem = { ...tem, dark: true }
-    const link = `${DOMAIN}/${routes["split-image"]}?${serialize(tem)}`
+    const link = `${DOMAIN}/${routes.docs}?${serialize(tem)}`
     return link
   }
 
@@ -71,15 +69,14 @@ export default function Simple() {
   }
 
 
-
   return (
     <section className="flex gap-8 flex-wrap lg:flex-nowrap">
 
       <div className="w-full lg:w-1/2">
         <div className="  flex items-baseline flex-wrap gap-y-4">
-          <div className="w-full">
-            <div className="w-full shadow-md rounded-xl border">
-              <TemplateUI t={t} />
+          <div >
+            <div className="shadow-md rounded-xl border">
+              <DocsTemplateUI t={t} />
             </div>
             <div className="mt-4 flex justify-center gap-x-4">
               <Button variant="outline" onClick={() => copyUrl(false)}>
@@ -91,9 +88,9 @@ export default function Simple() {
 
             </div>
           </div>
-          <div className="w-full">
-            <div className="w-full shadow-md rounded-xl">
-              <TemplateUI t={{ ...t, dark: true }} />
+          <div>
+            <div className="shadow-md rounded-xl">
+              <DocsTemplateUI t={{ ...t, dark: true }} />
             </div>
             <div className="mt-4 flex justify-center gap-x-4">
               <Button variant="outline" onClick={() => copyUrl(true)}>
@@ -109,7 +106,7 @@ export default function Simple() {
         </div>
       </div>
       <div className="w-full lg:w-1/2">
-        <h1 className="text-xl font-semibold"> Split Image Theme </h1>
+        <h1 className="text-xl font-semibold"> Docs Theme </h1>
         <hr className="mt-2"></hr>
 
         <form onSubmit={handleSubmit(onSubmit)} className="my-4 rounded-md space-y-5 grid grid-cols-1">
@@ -120,33 +117,32 @@ export default function Simple() {
               error={errors.title?.message?.toString()}
             />
           </div>
-          <div className="w-full">
-            <Label>Sub Heading</Label>
+          <div>
+            <Label>Sub</Label>
             <Input
               {...register('sub')}
               error={errors.sub?.message?.toString()}
             />
           </div>
           <div className="w-full">
+            <Label>Name</Label>
+            <Input
+              {...register('name')}
+              error={errors.name?.message?.toString()}
+            />
+          </div>
+          <div className="gap-3 items-center">
             <Label>Website</Label>
             <Input
               {...register('website')}
               error={errors.website?.message?.toString()}
             />
           </div>
-
-          <div className="w-full">
+          <div className="gap-3 items-center mt-6">
             <Label>Logo URL</Label>
             <Input
               {...register('logo')}
               error={errors.logo?.message?.toString()}
-            />
-          </div>
-          <div className="w-full">
-            <Label>Image URL</Label>
-            <Input
-              {...register('image')}
-              error={errors.image?.message?.toString()}
             />
           </div>
           <div>

@@ -72,10 +72,10 @@
     }
 
     @font-face{
-      font-family : "Poppins";
+      font-family : "Figtree";
       font-style : "normal";
       font-weight: 600;
-      src: url(Poppins.ttf)
+      src: url(Figtree.ttf)
 
     }
   }

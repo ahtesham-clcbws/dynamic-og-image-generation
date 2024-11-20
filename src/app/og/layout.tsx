@@ -35,7 +35,6 @@ export default function DashboardLayout({
   return (
     <section className='flex gap-2'>
       {/* Include shared UI here e.g. a header or sidebar */}
-      <Sidebar />
       <div className='px-1 lg:px-3 py-8 w-full'>
         <div className='lg:hidden mb-4'>
           <Alert text='Best viewed in larger screens , OG images may/will disorient. Use View as Image' color='amber' />

@@ -11,19 +11,19 @@ import { PrimaryFeatures } from '@/components/PrimaryFeatures'
 export default function Home() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main>
         <Hero />
-        <PrimaryFeatures />
+        {/* <PrimaryFeatures /> */}
         {/* <FeatureBlocks /> */}
         {/* <SecondaryFeatures /> */}
         {/* <Testimonials /> */}
         {/* <Pricing /> */}
-        <Feed />
-        <PaidFeatures />
-        <Faqs />
+        {/* <Feed /> */}
+        {/* <PaidFeatures /> */}
+        {/* <Faqs /> */}
 
-        <CallToAction />
+        {/* <CallToAction /> */}
       </main>
       {/* <Footer /> */}
     </>
