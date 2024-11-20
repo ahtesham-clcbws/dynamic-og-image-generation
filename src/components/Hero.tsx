@@ -28,7 +28,7 @@ export function Hero() {
         Unleash your creativity and share your boldest ideas with the world. At IdeaHatch, we&apos;re building a community of thinkers, dreamers, and doers, where every idea—big or small—has the potential to create an impact. Whether you&apos;re crafting solutions for today&apos;s challenges or imagining the innovations of tomorrow, this is your space to collaborate, connect, and inspire.
       </p>
       <div className="mt-10 flex justify-center flex-wrap gap-6">
-        <Button href={process.env.NEXT_PUBLIC_MAIN_WEBSITE as string} className='min-w-56'>Explore Ideas</Button>
+        <Button href="https://ideahatch.in" className='min-w-56'>Explore Ideas</Button>
       </div>
     </Container>
   )
