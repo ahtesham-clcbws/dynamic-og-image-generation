@@ -2,8 +2,6 @@ import { DocsTemplate } from '../Docs'
 
 import { ImageResponse } from 'next/og'
 import { NextRequest, NextResponse } from 'next/server'
-// import * as crypto from 'crypto';
-// import crypto from 'crypto';
 
 
 // Route segment config
@@ -31,43 +29,43 @@ export async function GET(request: NextRequest) {
   }
 
   // Web Crypto API for HMAC validation
-  // async function validateToken(title:string, secret:string, providedToken:string) {
-  //   // Step 1: Encode the secret key and the title
-  //   const encoder = new TextEncoder();
+  async function validateToken(title:string, secret:string, providedToken:string) {
+    // Step 1: Encode the secret key and the title
+    const encoder = new TextEncoder();
 
-  //   // Import the secret key into a crypto key object
-  //   const key = await crypto.subtle.importKey(
-  //     'raw',
-  //     encoder.encode(secret), // encoding secret
-  //     { name: 'HMAC', hash: 'SHA-256' }, // HMAC with SHA-256
-  //     false,
-  //     ['sign'] // only allowing the key to sign (create HMAC)
-  //   );
+    // Import the secret key into a crypto key object
+    const key = await crypto.subtle.importKey(
+      'raw',
+      encoder.encode(secret), // encoding secret
+      { name: 'HMAC', hash: 'SHA-256' }, // HMAC with SHA-256
+      false,
+      ['sign'] // only allowing the key to sign (create HMAC)
+    );
 
-  //   // Encode the title (this is the data you want to hash)
-  //   const dataTitle = encoder.encode('IdeaHatch');
+    // Encode the title (this is the data you want to hash)
+    const dataTitle = encoder.encode('IdeaHatch');
 
-  //   // Step 2: Sign the data with the secret key to generate the HMAC
-  //   const signature = await crypto.subtle.sign('HMAC', key, dataTitle);
+    // Step 2: Sign the data with the secret key to generate the HMAC
+    const signature = await crypto.subtle.sign('HMAC', key, dataTitle);
 
-  //   // Step 3: Convert the signature into a hexadecimal string (for comparison)
-  //   const expectedToken = Array.from(new Uint8Array(signature))
-  //     .map((b) => b.toString(16).padStart(2, '0')) // converting bytes to hex
-  //     .join(''); // joining all hex digits together
+    // Step 3: Convert the signature into a hexadecimal string (for comparison)
+    const expectedToken = Array.from(new Uint8Array(signature))
+      .map((b) => b.toString(16).padStart(2, '0')) // converting bytes to hex
+      .join(''); // joining all hex digits together
 
-  //   // Log for debugging
-  //   // console.log('Expected Token:', expectedToken);
-  //   // console.log('Provided Token:', providedToken);
+    // Log for debugging
+    // console.log('Expected Token:', expectedToken);
+    // console.log('Provided Token:', providedToken);
 
-  //   // Step 4: Compare the generated expected token with the provided token
-  //   return expectedToken === providedToken; // Return true if the tokens match
-  // }
+    // Step 4: Compare the generated expected token with the provided token
+    return expectedToken === providedToken; // Return true if the tokens match
+  }
 
-  // const isValid = await validateToken(title, secret, token);
+  const isValid = await validateToken(title, secret, token);
 
-  // if (!isValid) {
-  //   return NextResponse.json({ error: 'Unauthorized access' }, { status: 403 });
-  // }
+  if (!isValid) {
+    return NextResponse.json({ error: 'Unauthorized access' }, { status: 403 });
+  }
 
   const template = {
     title: params.get('title') || 'Be part of a growing community of creative minds. Share ideas, collaborate, and shape the future with IdeaHatch!',
